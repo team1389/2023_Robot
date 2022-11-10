@@ -13,10 +13,10 @@ public class Intake extends SubsystemBase{
     public Intake() {
         intakeMotor = new CANSparkMax(RobotMap.INTAKE_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushless);
     }
-    public void startIntaking(double intakePercent){
+    public static void startIntaking(double intakePercent){
         intakeMotor.set(intakePercent);
     }
-    public void stopIntaking() {
+    public static void stopIntaking() {
         intakeMotor.set(0);
     }
 }
