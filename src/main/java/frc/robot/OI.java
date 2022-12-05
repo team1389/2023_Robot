@@ -7,8 +7,8 @@ import frc.commands.RunIntake;
 import frc.subsystems.Intake;
 
 public class OI {
-    private JoystickButton manipXBtn, manipYBtn, manipABtn, manipBBtn;
-    private Intake intake =  new Intake();
+    private JoystickButton manipXBtn, manipYBtn, manipABtn, manipBBtn, lBumperButton, rBumperButton;
+    private Intake intake = new Intake();
     public XboxController driveController, manipController;
 
     public OI() {
@@ -19,14 +19,11 @@ public class OI {
     /*
      * Initialize JoystickButtons and Controllers
      */
+    
     private void initControllers() {
         driveController = new XboxController(0);
         manipController = new XboxController(1);
         manipXBtn = new JoystickButton(manipController, XboxController.Button.kX.value);
-        manipXBtn.whenPressed(new RunIntake(true,intake));
-        manipXBtn.whenReleased(new RunIntake(false,intake));
+        manipXBtn.whileHeld(new RunIntake(intake));
     }
-
-
-
 }
