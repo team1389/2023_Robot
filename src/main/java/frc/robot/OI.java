@@ -12,6 +12,7 @@ public class OI {
     private JoystickButton manipXBtn, manipYBtn, manipABtn, manipBBtn, lBumperButton, rBumperButton;
     private Intake intake = new Intake();
     private Shooter shooter = new Shooter();
+    private Indexer indexer = new Indexer();
     public XboxController driveController, manipController;
 
     public OI() {
@@ -30,5 +31,6 @@ public class OI {
         manipXBtn.whileHeld(new RunIntake(intake));
         manipABtn = new JoystickButton(manipController, XboxController.Button.kA.value);
         manipABtn.whileHeld(new Shoot(shooter));
+        manipABtn.whileHeld(new RunIndexer(indexer));
     }
 }
