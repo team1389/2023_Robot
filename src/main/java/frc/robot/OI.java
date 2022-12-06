@@ -5,12 +5,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.commands.RunHopper;
 import frc.commands.RunIntake;
-import frc.subsystems.Hopper;
+import frc.commands.*;
+import frc.subsystems.*;
 import frc.subsystems.Intake;
 
 public class OI {
-    private JoystickButton manipXBtn, manipYBtn, manipABtn, manipBBtn;
-    private Intake intake =  new Intake();
+    private JoystickButton manipXBtn, manipYBtn, manipABtn, manipBBtn, lBumperButton, rBumperButton;
+    private Intake intake = new Intake();
+    private Shooter shooter = new Shooter();
     public XboxController driveController, manipController;
     private Hopper hopper = new Hopper();
 
@@ -22,15 +24,17 @@ public class OI {
     /*
      * Initialize JoystickButtons and Controllers
      */
+    
     private void initControllers() {
         driveController = new XboxController(0);
         manipController = new XboxController(1);
         manipXBtn = new JoystickButton(manipController, XboxController.Button.kX.value);
-        manipXBtn.whenPressed(new RunIntake(true,intake));
-        manipXBtn.whenReleased(new RunIntake(false,intake));
 
         manipYBtn = new JoystickButton(manipController, XboxController.Button.kY.value);
         manipYBtn.whenPressed(new RunHopper(hopper));
         manipYBtn.whenReleased(new RunHopper(hopper));
+        manipXBtn.whileHeld(new RunIntake(intake));
+        manipABtn = new JoystickButton(manipController, XboxController.Button.kA.value);
+        manipABtn.whileHeld(new Shoot(shooter));
     }
 }
