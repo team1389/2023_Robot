@@ -15,12 +15,12 @@ public class Climber extends SubsystemBase {
     private DoubleSolenoid leftSolenoid;
     private DoubleSolenoid rightSolenoid;
 
-    enum Position {
+    public enum Position {
         Left,
         Right
     }
 
-    enum Action {
+    public enum Action {
         Extend,
         Retract
     }
@@ -46,9 +46,9 @@ public class Climber extends SubsystemBase {
         }
         switch (act) {
             case Extend:
-                motor.set(TalonSRXControlMode.Position, 0.5);
+                motor.set(TalonSRXControlMode.Position, 0.3);
             case Retract:
-                motor.set(TalonSRXControlMode.Position, -0.5);
+                motor.set(TalonSRXControlMode.Position, -0.3);
         }
     }
 
@@ -68,5 +68,14 @@ public class Climber extends SubsystemBase {
             case Retract:
                 solenoid.set(Value.kReverse);
         }
+    }
+    
+    public void endControl(){
+        leftClimberMotor.set(TalonSRXControlMode.Position, 0.0);
+        rightClimberMotor.set(TalonSRXControlMode.Position, 0.0);
+    }
+    public void endSwing(){
+        leftSolenoid.set(Value.kOff);
+        rightSolenoid.set(Value.kOff);
     }
 }
